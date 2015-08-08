@@ -1,14 +1,3 @@
-//add styles
-var css = '.settings{position: fixed;bottom: 10px;right: 10px;width: 40px;background: #57C553;border-radius: 50px;z-index: 100;};';
-var style = document.createElement('style');
-style.appendChild(document.createTextNode(css));
-document.getElementsByTagName('head')[0].appendChild(style);
-
-var css = '#settingsPanel{z-index: 100;position: fixed;top: 100px;width: 80%;background: #57C553;border-radius: 10px;left: 50%;margin: 0 0 0 -40%;border: 6px solid #f4f4f4;box-shadow: 0 2px 2px rgba(0,0,0,.18);color:#FFF;padding:10px;text-align: center;};';
-var style = document.createElement('style');
-style.appendChild(document.createTextNode(css));
-document.getElementsByTagName('head')[0].appendChild(style);
-
 //add settings icon
 var img = document.createElement( 'img' );
 img.setAttribute('src','http://png-5.findicons.com/files/icons/949/token/256/gear.png');

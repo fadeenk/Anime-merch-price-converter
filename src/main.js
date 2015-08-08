@@ -1,12 +1,6 @@
 //avoid jquery conflict
 this.$ = this.jQuery = jQuery.noConflict(true);
 
-//adds the style for converted Price
-var css = '.convertedPrice{background-color: #57C553;border-radius: 7px;text-align: center;border: 4px solid #f4f4f4;box-shadow: 0 2px 2px rgba(0,0,0,.18);font-size: 20px;color: #fff;font-weight: 600;display: block;margin-left: auto !important;margin-right: auto !important;width:100px;}';
-var style = document.createElement('style');
-style.appendChild(document.createTextNode(css));
-document.getElementsByTagName('head')[0].appendChild(style);
-
 var currentUnit = localStorage.getItem('currentUnit') || 'USD';
 var conversionDate = GM_getValue(currentUnit+'.date') || 0;
 var now = Date.now();

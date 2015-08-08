@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name        AnimeMerchPriceConverter
 // @namespace   http://mrkannah.com
-// @updateURL   https://raw.githubusercontent.com/fadeenk/Anime-merch-price-converter/master/dist/AMPC.min.js
 // @description Converts prices from jpy to usd
 // @include     http://slist.amiami.com/top/search/*
 // @include     http://www.amiami.com/*
 // @include     http://order.mandarake.co.jp/*
 // @grant       GM_setValue
 // @grant       GM_getValue
-// @version     0.5.1
+// @grant       GM_addStyle
+// @version     0.5.2
 // @require     http://code.jquery.com/jquery-2.1.3.min.js
 // ==/UserScript==
 
@@ -28,12 +28,6 @@ GNU General Public License for more details.
 
 //avoid jquery conflict
 this.$ = this.jQuery = jQuery.noConflict(true);
-
-//adds the style for converted Price
-var css = '.convertedPrice{background-color: #57C553;border-radius: 7px;text-align: center;border: 4px solid #f4f4f4;box-shadow: 0 2px 2px rgba(0,0,0,.18);font-size: 20px;color: #fff;font-weight: 600;display: block;margin-left: auto !important;margin-right: auto !important;width:100px;}';
-var style = document.createElement('style');
-style.appendChild(document.createTextNode(css));
-document.getElementsByTagName('head')[0].appendChild(style);
 
 var currentUnit = localStorage.getItem('currentUnit') || 'USD';
 var conversionDate = GM_getValue(currentUnit+'.date') || 0;
@@ -123,17 +117,6 @@ function applyConversions(currentUnit) {
     }
 }
 
-//add styles
-var css = '.settings{position: fixed;bottom: 10px;right: 10px;width: 40px;background: #57C553;border-radius: 50px;z-index: 100;};';
-var style = document.createElement('style');
-style.appendChild(document.createTextNode(css));
-document.getElementsByTagName('head')[0].appendChild(style);
-
-var css = '#settingsPanel{z-index: 100;position: fixed;top: 100px;width: 80%;background: #57C553;border-radius: 10px;left: 50%;margin: 0 0 0 -40%;border: 6px solid #f4f4f4;box-shadow: 0 2px 2px rgba(0,0,0,.18);color:#FFF;padding:10px;text-align: center;};';
-var style = document.createElement('style');
-style.appendChild(document.createTextNode(css));
-document.getElementsByTagName('head')[0].appendChild(style);
-
 //add settings icon
 var img = document.createElement( 'img' );
 img.setAttribute('src','http://png-5.findicons.com/files/icons/949/token/256/gear.png');
@@ -164,3 +147,13 @@ function setUpSettings(currentUnit, UNITS){
    $('#settingsPanel').hide();
   });
 }
+
+
+//adds the style for converted Price
+GM_addStyle('.convertedPrice{background-color: #57C553;border-radius: 7px;text-align: center;border: 4px solid #f4f4f4;box-shadow: 0 2px 2px rgba(0,0,0,.18);font-size: 20px;color: #fff;font-weight: 600;display: block;margin-left: auto !important;margin-right: auto !important;width:100px;}');
+
+//settings icon
+GM_addStyle('.settings{position: fixed;bottom: 10px;right: 10px;width: 40px;background: #57C553;border-radius: 50px;z-index: 100;};');
+
+//settings panel
+GM_addStyle('#settingsPanel{z-index: 100;position: fixed;top: 100px;width: 80%;background: #57C553;border-radius: 10px;left: 50%;margin: 0 0 0 -40%;border: 6px solid #f4f4f4;box-shadow: 0 2px 2px rgba(0,0,0,.18);color:#FFF;padding:10px;text-align: center;};');
