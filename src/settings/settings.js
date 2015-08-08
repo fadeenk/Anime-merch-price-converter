@@ -10,6 +10,8 @@ $( '#AMPCsettings' ).click(function() {
  $('#settingsPanel').show();
 });
 
+injectJs(setUpSettings);
+
 function setUpSettings(currentUnit, UNITS){
   //generate the options to select from
   var options='';

@@ -31,13 +31,8 @@ Visit amiami or mandarake the script will automatically start, it defaults to US
 
 ## Developers
 If you are interested in improving this script feel free to fork and clone.
-1. Install required packages by using the following command in the root directory  
-```
-npm install
-```
+
+1. Install required packages by using the following command in the root directory  `npm install`
 2. Do your magic
-3. Build your code and test it
-```
-grunt build
-```
+3. Build your code and test it 'grunt build'
 4. Once satisfied submit a pull request :)

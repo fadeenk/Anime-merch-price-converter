@@ -1,14 +1,16 @@
 // ==UserScript==
 // @name        AnimeMerchPriceConverter
 // @namespace   http://mrkannah.com
-// @description Converts prices from jpy to usd
+// @description Converts prices from Japanese yen to popular currencies for amiami and mandarake. This scripts gets the conversion rates from Yahoo Finance daily.
 // @include     http://slist.amiami.com/top/search/*
 // @include     http://www.amiami.com/*
 // @include     http://order.mandarake.co.jp/*
 // @grant       GM_setValue
+// @license     GPL-3.0
+// @author      Fadee Kannah
 // @grant       GM_getValue
 // @grant       GM_addStyle
-// @version     0.5.2
+// @version     0.5.3
 // @require     http://code.jquery.com/jquery-2.1.3.min.js
 // ==/UserScript==
 
@@ -128,6 +130,8 @@ $('body').append(img);
 $( '#AMPCsettings' ).click(function() {
  $('#settingsPanel').show();
 });
+
+injectJs(setUpSettings);
 
 function setUpSettings(currentUnit, UNITS){
   //generate the options to select from

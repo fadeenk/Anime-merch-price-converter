@@ -1,7 +1,7 @@
 {
   "name": "AnimeMerchPriceConverter",
-  "version": "0.5.2",
-  "description":"Converts prices from jpy to usd",
+  "version": "0.5.3",
+  "description":"Converts prices from Japanese yen to popular currencies for amiami and mandarake. This scripts gets the conversion rates from Yahoo Finance daily.",
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-concat": "~0.5.1",
