@@ -6,6 +6,8 @@
 // @include     http://www.amiami.com/*
 // @include     http://order.mandarake.co.jp/*
 // @grant       GM_setValue
+// @license     GPL-3.0
+// @author      Fadee Kannah
 // @grant       GM_getValue
 // @grant       GM_addStyle
 // @version     @@version
