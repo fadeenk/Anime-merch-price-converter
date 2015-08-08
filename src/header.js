@@ -1,7 +1,6 @@
 // ==UserScript==
 // @name        @@name
 // @namespace   http://mrkannah.com
-// @updateURL   https://raw.githubusercontent.com/fadeenk/Anime-merch-price-converter/master/dist/AMPC.min.js
 // @description @@description
 // @include     http://slist.amiami.com/top/search/*
 // @include     http://www.amiami.com/*

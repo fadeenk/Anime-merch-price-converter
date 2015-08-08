@@ -1,6 +1,6 @@
 {
   "name": "AnimeMerchPriceConverter",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description":"Converts prices from jpy to usd",
   "devDependencies": {
     "grunt": "~0.4.5",

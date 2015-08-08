@@ -8,7 +8,7 @@
 // @include     http://order.mandarake.co.jp/*
 // @grant       GM_setValue
 // @grant       GM_getValue
-// @version     0.5.0
+// @version     0.5.1
 // @require     http://code.jquery.com/jquery-2.1.3.min.js
 // ==/UserScript==
 
