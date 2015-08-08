@@ -4,6 +4,7 @@
 // @description @@description
 // @include     http://slist.amiami.com/top/search/*
 // @include     http://www.amiami.com/*
+// @include     http://myfigurecollection.net/item/*
 // @include     http://order.mandarake.co.jp/*
 // @grant       GM_setValue
 // @license     GPL-3.0

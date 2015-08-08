@@ -78,9 +78,14 @@ function applyConversions(currentUnit) {
 
     //get conversion rate
     var conversion = parseFloat(localStorage.getItem(currentUnit+'.rate'));
-
+    var prices;
     //find the prices
-    var prices = $('li.product_price, li.selling_price:first, li.price, div.basicinfo dl :nth-child(6) p, div.price > p');
+    if(window.location.href.indexOf('http://myfigurecollection.net/') > -1) {
+       prices = $('.sd:first li label:contains("Price")').closest('li').children( 'div' );
+    }
+    else{
+      prices = $('li.product_price, li.selling_price:first, li.price, div.basicinfo dl :nth-child(6) p, div.price > p');
+    }
     for(var i =0; i<prices.length;i++){
         var price=$(prices[i]).justNumber();
         //multiply by the magic number

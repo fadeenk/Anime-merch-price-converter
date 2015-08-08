@@ -1,5 +1,5 @@
 # [Anime-merch-price-converter](https://github.com/fadeenk/Anime-merch-price-converter)
-Converts prices from Japanese yen to popular currencies for amiami and mandarake. This scripts gets the conversion rates from [Yahoo Finance](https://finance.yahoo.com) daily.
+Converts prices from Japanese yen to popular currencies for amiami, mandarake and myfigurecollection (MFC). This scripts gets the conversion rates from [Yahoo Finance](https://finance.yahoo.com) daily.
 
 ## Installation
 This is a user script and it needs a script manager extension for the browser

@@ -21,6 +21,7 @@
     "GM_setValue":true,
     "GM_addStyle":true,
     "setUpSettings":true,
-    "injectJs":true
+    "injectJs":true,
+    "alert":true
     }
 }

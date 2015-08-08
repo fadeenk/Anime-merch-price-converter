@@ -1,16 +1,17 @@
 // ==UserScript==
 // @name        AnimeMerchPriceConverter
 // @namespace   http://mrkannah.com
-// @description Converts prices from Japanese yen to popular currencies for amiami and mandarake. This scripts gets the conversion rates from Yahoo Finance daily.
+// @description Converts prices from Japanese yen to popular currencies for amiami, mandarake and myfigurecollection (MFC). This scripts gets the conversion rates from Yahoo Finance daily.
 // @include     http://slist.amiami.com/top/search/*
 // @include     http://www.amiami.com/*
+// @include     http://myfigurecollection.net/item/*
 // @include     http://order.mandarake.co.jp/*
 // @grant       GM_setValue
 // @license     GPL-3.0
 // @author      Fadee Kannah
 // @grant       GM_getValue
 // @grant       GM_addStyle
-// @version     0.5.3
+// @version     0.5.4
 // @require     http://code.jquery.com/jquery-2.1.3.min.js
 // ==/UserScript==
 
@@ -108,9 +109,14 @@ function applyConversions(currentUnit) {
 
     //get conversion rate
     var conversion = parseFloat(localStorage.getItem(currentUnit+'.rate'));
-
+    var prices;
     //find the prices
-    var prices = $('li.product_price, li.selling_price:first, li.price, div.basicinfo dl :nth-child(6) p, div.price > p');
+    if(window.location.href.indexOf('http://myfigurecollection.net/') > -1) {
+       prices = $('.sd:first li label:contains("Price")').closest('li').children( 'div' );
+    }
+    else{
+      prices = $('li.product_price, li.selling_price:first, li.price, div.basicinfo dl :nth-child(6) p, div.price > p');
+    }
     for(var i =0; i<prices.length;i++){
         var price=$(prices[i]).justNumber();
         //multiply by the magic number
