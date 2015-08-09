@@ -34,9 +34,12 @@ This is a user script and it needs a script manager extension for the browser
 
 ## Screenshots
 
-![screenshot_1](http://i.imgur.com/SETTxux.png)
-![screenshot_2](http://i.imgur.com/HEm2RaY.jpg)
-![screenshot_3](http://i.imgur.com/VjTkEDh.png)
+![screenshot_1](http://i.imgur.com/jzVl8ez.png)
+![screenshot_2](http://i.imgur.com/oA5Uopg.png)
+![screenshot_3](http://i.imgur.com/65ZHzha.png)
+![screenshot_4](http://i.imgur.com/pRYejdv.png)
+![screenshot_5](http://i.imgur.com/vEZmX65.png)
+![screenshot_6](http://i.imgur.com/4QrjRZJ.png)
 
 ## Issues
 
