@@ -1,5 +1,22 @@
 # [Anime-merch-price-converter](https://github.com/fadeenk/Anime-merch-price-converter)
-Converts prices from Japanese yen to popular currencies for amiami, mandarake and myfigurecollection (MFC). This scripts gets the conversion rates from [Yahoo Finance](https://finance.yahoo.com) daily.
+Converts prices from Japanese yen to popular currencies for the popular anime merchandise websites. This scripts gets the conversion rates from [Yahoo Finance](https://finance.yahoo.com) daily.
+
+|Supported Sites|Supported Currencies
+|:-:|:-:
+|amiami|US Dollar
+|mandarake|Euro
+|myfigurecollection (MFC)|British Pound
+|HobbySearch|Canadian Dollar
+|Jungle|Swiss Franc
+|Good Smile Online Shop|Australia Dollar
+|Big in Japan|-
+
+## Features
+* Works automatically (No setup required other than having a user script manager)
+* Configurable through settings panel (lower right corner)
+* Easy to switch between currency
+* Easy to change colors to match your taste
+* Settings are global and shared between the Different sites
 
 ## Installation
 This is a user script and it needs a script manager extension for the browser
@@ -14,10 +31,6 @@ This is a user script and it needs a script manager extension for the browser
 		1. Go to [https://greasyfork.org/en/scripts/11560-animemerchpriceconverter](https://greasyfork.org/en/scripts/11560-animemerchpriceconverter)
 		2. Click `Install this script`
 	- Directly from [here](https://github.com/fadeenk/Anime-merch-price-converter/raw/master/dist/AMPC.user.js)
-
-## Usage:
-
-Visit amiami or mandarake the script will automatically start, it defaults to US dollars. If you want to change the currency click on the green settings icon in the lower right icon.
 
 ## Screenshots
 
@@ -36,3 +49,11 @@ If you are interested in improving this script feel free to fork and clone.
 2. Do your magic
 3. Build your code and test it `grunt build`
 4. Once satisfied submit a pull request :)
+
+## Release History
+* Aug 8, 2015   v1.0.0   Improved styling to better fit different websites, Styles are not configurable through the settings panel. Added global shared variables for the currency and styles. Improved code readability. Settings Panel is more organized and fully responsive. Changed $ to jQuery to avoid conflict with $ on goodsmile. And added more websites and currencies.
+* Aug 7, 2015   v0.5.4   Added support for myfigurecollection (MFC) and implemented a new system for detecting prices on different sites
+* Aug 7, 2015   v0.5.3   Fixed issue where setUpSettings function was not injected into the page and updated descriptions
+* Aug 7, 2015   v0.5.2   Changed the way styles were injected to the page
+* Aug 7, 2015   v0.5.1   Removed uglify and added support for userscripts (greasyfork)
+* Aug 7, 2015   v0.5.0   Initial Release works only on amiami and mandarake and converts to Euro and American Dollars

@@ -1,9 +1,21 @@
 //avoid jquery conflict
 this.$ = this.jQuery = jQuery.noConflict(true);
 
-var currentUnit = localStorage.getItem('currentUnit') || 'USD';
+//load variables from script if does not exists loads defaults
 var conversionDate = GM_getValue(currentUnit+'.date') || 0;
+var currentUnit = GM_getValue('currentUnit') || 'USD';
+var color = GM_getValue('color') || '#57C553';
+var border = GM_getValue('border') || '#f4f4f4';
+var font = GM_getValue('font') || '#FFFFFF';
 var now = Date.now();
+var UNITS = {
+    USD:{symbol:'$',name:'US Dollar'},
+    EUR:{symbol:'€',name:'Euro'},
+    GBP:{symbol:'£',name:'British Pound'},
+    CAD:{symbol:'$',name:'Canadian Dollar'},
+    CHF:{symbol:'',name:'Swiss Franc'},
+    AUD:{symbol:'$',name:'Australia Dollar'},
+};
 
 //check the script and localstorage for the conversion rate and date
 //the script stores the values so they sync between different sites
@@ -34,8 +46,13 @@ if(now - conversionDate > 60000 * 60 * 24){
 }else{
     applyConversions(currentUnit);
 }
-
+//inject the scripts into the page (thoes function execute on the page scope rather than the tampermonkey scope)
+injectJs(getPrices);
 injectJs(applyConversions);
+injectJs('var UNITS = '+JSON.stringify(UNITS));
+
+//generates and configures the settings page
+setUpSettings(currentUnit, UNITS);
 
 //inject js functions to the page so it can run on the page rather than the script
 function injectJs(JS) {
@@ -60,36 +77,22 @@ function parseExchangeRate(data) {
     applyConversions(currentUnit);
 }
 
+
 //actually converts the prices and adds them to our page
 function applyConversions(currentUnit) {
     //cleans up the html content to only return the cost as a number
     jQuery.fn.justNumber = function() {
-        return $(this).clone().children().remove()
+        return jQuery(this).clone().children().remove()
         .end().text().replace( /\D+/g, '');
     };
 
-    var UNITS = {
-        USD:{symbol:'$',name:'US Dollar'},
-        EUR:{symbol:'€',name:'Euro'}
-    };
-
-    //generates and configures the settings page
-    setUpSettings(currentUnit, UNITS);
-
     //get conversion rate
     var conversion = parseFloat(localStorage.getItem(currentUnit+'.rate'));
-    var prices;
-    //find the prices
-    if(window.location.href.indexOf('http://myfigurecollection.net/') > -1) {
-       prices = $('.sd:first li label:contains("Price")').closest('li').children( 'div' );
-    }
-    else{
-      prices = $('li.product_price, li.selling_price:first, li.price, div.basicinfo dl :nth-child(6) p, div.price > p');
-    }
+    var prices = getPrices();
     for(var i =0; i<prices.length;i++){
-        var price=$(prices[i]).justNumber();
+        var price=jQuery(prices[i]).justNumber();
         //multiply by the magic number
         var convertedPrice = (price * conversion).toFixed(2);
-        $(prices[i]).append('<p class="convertedPrice">'+UNITS[currentUnit].symbol + convertedPrice + '</p>');
+        jQuery(prices[i]).append('<p class="convertedPrice">'+UNITS[currentUnit].symbol + convertedPrice + '</p>');
     }
 }

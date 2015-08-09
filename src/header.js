@@ -2,17 +2,21 @@
 // @name        @@name
 // @namespace   http://mrkannah.com
 // @description @@description
+// @version     @@version
+// @author      Fadee Kannah
+// @license     GPL-3.0
 // @include     http://slist.amiami.com/top/search/*
 // @include     http://www.amiami.com/*
 // @include     http://myfigurecollection.net/item/*
 // @include     http://order.mandarake.co.jp/*
-// @grant       GM_setValue
-// @license     GPL-3.0
-// @author      Fadee Kannah
-// @grant       GM_getValue
-// @grant       GM_addStyle
-// @version     @@version
+// @include     http://www.1999.co.jp/eng/*
+// @include     http://jungle-scs.co.jp/sale_en/*
+// @include     http://goodsmile-global.ecq.sc/*
+// @include     http://biginjap.com/*
 // @require     http://code.jquery.com/jquery-2.1.3.min.js
+// @grant       GM_getValue
+// @grant       GM_setValue
+// @grant       GM_addStyle
 // ==/UserScript==
 
 /*

@@ -1,18 +1,22 @@
 // ==UserScript==
 // @name        AnimeMerchPriceConverter
 // @namespace   http://mrkannah.com
-// @description Converts prices from Japanese yen to popular currencies for amiami, mandarake and myfigurecollection (MFC). This scripts gets the conversion rates from Yahoo Finance daily.
+// @description Converts prices from Japanese yen to popular currencies for amiami, mandarake, myfigurecollection (MFC), HobbySearch, Jungle, Good Smile Online Shop, and Big in Japan. This scripts gets the conversion rates from Yahoo Finance daily.
+// @version     1.0.0
+// @author      Fadee Kannah
+// @license     GPL-3.0
 // @include     http://slist.amiami.com/top/search/*
 // @include     http://www.amiami.com/*
 // @include     http://myfigurecollection.net/item/*
 // @include     http://order.mandarake.co.jp/*
-// @grant       GM_setValue
-// @license     GPL-3.0
-// @author      Fadee Kannah
-// @grant       GM_getValue
-// @grant       GM_addStyle
-// @version     0.5.4
+// @include     http://www.1999.co.jp/eng/*
+// @include     http://jungle-scs.co.jp/sale_en/*
+// @include     http://goodsmile-global.ecq.sc/*
+// @include     http://biginjap.com/*
 // @require     http://code.jquery.com/jquery-2.1.3.min.js
+// @grant       GM_getValue
+// @grant       GM_setValue
+// @grant       GM_addStyle
 // ==/UserScript==
 
 /*
@@ -32,9 +36,21 @@ GNU General Public License for more details.
 //avoid jquery conflict
 this.$ = this.jQuery = jQuery.noConflict(true);
 
-var currentUnit = localStorage.getItem('currentUnit') || 'USD';
+//load variables from script if does not exists loads defaults
 var conversionDate = GM_getValue(currentUnit+'.date') || 0;
+var currentUnit = GM_getValue('currentUnit') || 'USD';
+var color = GM_getValue('color') || '#57C553';
+var border = GM_getValue('border') || '#f4f4f4';
+var font = GM_getValue('font') || '#FFFFFF';
 var now = Date.now();
+var UNITS = {
+    USD:{symbol:'$',name:'US Dollar'},
+    EUR:{symbol:'€',name:'Euro'},
+    GBP:{symbol:'£',name:'British Pound'},
+    CAD:{symbol:'$',name:'Canadian Dollar'},
+    CHF:{symbol:'',name:'Swiss Franc'},
+    AUD:{symbol:'$',name:'Australia Dollar'},
+};
 
 //check the script and localstorage for the conversion rate and date
 //the script stores the values so they sync between different sites
@@ -65,8 +81,13 @@ if(now - conversionDate > 60000 * 60 * 24){
 }else{
     applyConversions(currentUnit);
 }
-
+//inject the scripts into the page (thoes function execute on the page scope rather than the tampermonkey scope)
+injectJs(getPrices);
 injectJs(applyConversions);
+injectJs('var UNITS = '+JSON.stringify(UNITS));
+
+//generates and configures the settings page
+setUpSettings(currentUnit, UNITS);
 
 //inject js functions to the page so it can run on the page rather than the script
 function injectJs(JS) {
@@ -91,37 +112,23 @@ function parseExchangeRate(data) {
     applyConversions(currentUnit);
 }
 
+
 //actually converts the prices and adds them to our page
 function applyConversions(currentUnit) {
     //cleans up the html content to only return the cost as a number
     jQuery.fn.justNumber = function() {
-        return $(this).clone().children().remove()
+        return jQuery(this).clone().children().remove()
         .end().text().replace( /\D+/g, '');
     };
 
-    var UNITS = {
-        USD:{symbol:'$',name:'US Dollar'},
-        EUR:{symbol:'€',name:'Euro'}
-    };
-
-    //generates and configures the settings page
-    setUpSettings(currentUnit, UNITS);
-
     //get conversion rate
     var conversion = parseFloat(localStorage.getItem(currentUnit+'.rate'));
-    var prices;
-    //find the prices
-    if(window.location.href.indexOf('http://myfigurecollection.net/') > -1) {
-       prices = $('.sd:first li label:contains("Price")').closest('li').children( 'div' );
-    }
-    else{
-      prices = $('li.product_price, li.selling_price:first, li.price, div.basicinfo dl :nth-child(6) p, div.price > p');
-    }
+    var prices = getPrices();
     for(var i =0; i<prices.length;i++){
-        var price=$(prices[i]).justNumber();
+        var price=jQuery(prices[i]).justNumber();
         //multiply by the magic number
         var convertedPrice = (price * conversion).toFixed(2);
-        $(prices[i]).append('<p class="convertedPrice">'+UNITS[currentUnit].symbol + convertedPrice + '</p>');
+        jQuery(prices[i]).append('<p class="convertedPrice">'+UNITS[currentUnit].symbol + convertedPrice + '</p>');
     }
 }
 
@@ -130,14 +137,12 @@ var img = document.createElement( 'img' );
 img.setAttribute('src','http://png-5.findicons.com/files/icons/949/token/256/gear.png');
 img.setAttribute('class','settings');
 img.setAttribute('id','AMPCsettings');
-$('body').append(img);
+jQuery('body').append(img);
 
 //icon click handler
-$( '#AMPCsettings' ).click(function() {
- $('#settingsPanel').show();
+jQuery( '#AMPCsettings' ).click(function() {
+ jQuery('#settingsPanel').show();
 });
-
-injectJs(setUpSettings);
 
 function setUpSettings(currentUnit, UNITS){
   //generate the options to select from
@@ -146,24 +151,67 @@ function setUpSettings(currentUnit, UNITS){
       options += '<option value="'+unit+'">'+UNITS[unit].name+' ('+unit+')</option>';
   }
 
-  $( 'body' ).append('<div id="settingsPanel"><span style="float:right;margin-top: -10px;margin-right: -5px;">X</span><h1 style="text-align: center;font-size: 24px;font-weight: 500;">AMPC Settings</h1>Select your currency: <select class="UNITS">'+options+'</select><br><button id="update">Update</button></div></div>');
-  $('.UNITS').val(currentUnit); //sets the option to the current option
-  $('#settingsPanel').hide(); //hide settings page
-  $( '#update' ).click(function() { //update handler
-    localStorage.setItem('currentUnit',$('.UNITS').val());
-   location.reload(true);
+  jQuery( 'body' ).append('<div id="settingsPanel"><span style="float:right;margin-top: -8px;margin-right: -5px;">X</span><h1 style="text-align: center;">AMPC Settings</h1>Currency: <select class="UNITS">'+options+'</select><h2>Styles</h2><span>Background Color: </span><input id="color" type="color"/><br/><span>Border Color: </span><input id="border" type="color"/><br/><span>Font Color: </span><input id="font" type="color"/><br/><br/><button id="update">Update</button></div></div>');
+  //sets the settings page to the current options
+  jQuery('.UNITS').val(currentUnit);
+  jQuery('#color').val(color);
+  jQuery('#border').val(border);
+  jQuery('#font').val(font);
+  //hide settings page
+  jQuery('#settingsPanel').hide();
+  //update handler
+  jQuery( '#update' ).click(function() {
+    GM_setValue('currentUnit',jQuery('.UNITS').val());
+    GM_setValue('color',jQuery('#color').val());
+    GM_setValue('font',jQuery('#font').val());
+    GM_setValue('border',jQuery('#border').val());
+    location.reload(true);
   });
-  $( '#settingsPanel span' ).click(function() { //close settings handler
-   $('#settingsPanel').hide();
+  //color change handlers
+  jQuery( '#color' ).change(function() {
+    jQuery('#settingsPanel,.settings,.convertedPrice').css('background', jQuery('#color').val());
   });
+  jQuery( '#font' ).change(function() {
+    jQuery('#settingsPanel,.settings,.convertedPrice').css('color', jQuery('#font').val());
+  });
+  jQuery( '#border' ).change(function() {
+    jQuery('#settingsPanel,.settings,.convertedPrice').css('border-color', jQuery('#border').val());
+  });
+  //close settings handler
+  jQuery( '#settingsPanel span' ).click(function() {
+   jQuery('#settingsPanel').hide();
+  });
+}
+
+function getPrices(){
+  //returns the elements that have the prices on them
+  if(window.location.href.indexOf('http://myfigurecollection.net/') > -1) {
+     return jQuery('.sd:first li label:contains("Price")').closest('li').children( 'div' );
+  }
+  else if(window.location.href.indexOf('http://www.1999.co.jp/eng') > -1) {
+    return jQuery('[id^=masterBody_ProductList_lvProductListTop_lblPrice]');
+  }
+  else if(window.location.href.indexOf('http://jungle-scs.co.jp/') > -1 || window.location.href.indexOf('http://goodsmile-global.ecq.sc/') > -1) {
+    return jQuery('.price');
+  }
+  else if(window.location.href.indexOf('http://biginjap.com/') > -1 ) {
+    return jQuery('.price, #our_price_display');
+  }
+  else if(window.location.href.indexOf('http://order.mandarake.co.jp/') > -1 ) {
+    return jQuery('div.basicinfo dl :nth-child(6) p, div.price > p');
+  }
+  else{
+    return jQuery('li.product_price, li.selling_price:first, li.price');
+  }
 }
 
 
 //adds the style for converted Price
-GM_addStyle('.convertedPrice{background-color: #57C553;border-radius: 7px;text-align: center;border: 4px solid #f4f4f4;box-shadow: 0 2px 2px rgba(0,0,0,.18);font-size: 20px;color: #fff;font-weight: 600;display: block;margin-left: auto !important;margin-right: auto !important;width:100px;}');
+GM_addStyle('.convertedPrice{background:'+color+';border-radius: 7px;text-align: center;border: 2px solid '+border+';color: '+font+';font-weight: 600;display: inline-block;padding: 0 3px;}');
 
 //settings icon
-GM_addStyle('.settings{position: fixed;bottom: 10px;right: 10px;width: 40px;background: #57C553;border-radius: 50px;z-index: 100;};');
+GM_addStyle('.settings{position: fixed;bottom: 10px;right: 10px;width: 40px;background: '+color+';border-radius: 50px;z-index: 100;};');
 
 //settings panel
-GM_addStyle('#settingsPanel{z-index: 100;position: fixed;top: 100px;width: 80%;background: #57C553;border-radius: 10px;left: 50%;margin: 0 0 0 -40%;border: 6px solid #f4f4f4;box-shadow: 0 2px 2px rgba(0,0,0,.18);color:#FFF;padding:10px;text-align: center;};');
+GM_addStyle('#settingsPanel{z-index: 100;position: fixed;top: 100px;background: '+color+';border-radius: 10px;left: 50%;transform: translate(-50%, 0);border: 3px solid '+border+';box-shadow: 0 2px 2px rgba(0,0,0,.18);color:'+font+';padding:10px;text-align: center;};');
+GM_addStyle('#settingsPanel span{margin-top: 4px;float:left;} #settingsPanel input{float:right;} #settingsPanel br{clear:both;}');

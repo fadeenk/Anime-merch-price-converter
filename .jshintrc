@@ -11,7 +11,6 @@
   "noarg": true,
   "quotmark": "single",
   "regexp": true,
-  "undef": true,
   "trailing": true,
   "smarttabs": true,
   "globals": {
