@@ -2,7 +2,7 @@
 // @name        AnimeMerchPriceConverter
 // @namespace   http://mrkannah.com
 // @description Converts prices from Japanese yen to popular currencies for amiami, mandarake, myfigurecollection (MFC), HobbySearch, Jungle, Good Smile Online Shop, and Big in Japan. This scripts gets the conversion rates from Yahoo Finance daily.
-// @version     1.0.0
+// @version     1.0.1
 // @author      Fadee Kannah
 // @license     GPL-3.0
 // @include     http://slist.amiami.com/top/search/*
@@ -50,6 +50,7 @@ var UNITS = {
     CAD:{symbol:'$',name:'Canadian Dollar'},
     CHF:{symbol:'',name:'Swiss Franc'},
     AUD:{symbol:'$',name:'Australia Dollar'},
+    MXN:{symbol:'$',name:'Mexican Pesos'},    
 };
 
 //check the script and localstorage for the conversion rate and date

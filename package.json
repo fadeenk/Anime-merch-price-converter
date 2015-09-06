@@ -1,6 +1,6 @@
 {
   "name": "AnimeMerchPriceConverter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description":"Converts prices from Japanese yen to popular currencies for amiami, mandarake, myfigurecollection (MFC), HobbySearch, Jungle, Good Smile Online Shop, and Big in Japan. This scripts gets the conversion rates from Yahoo Finance daily.",
   "devDependencies": {
     "grunt": "~0.4.5",

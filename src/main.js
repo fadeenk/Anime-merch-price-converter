@@ -15,6 +15,7 @@ var UNITS = {
     CAD:{symbol:'$',name:'Canadian Dollar'},
     CHF:{symbol:'',name:'Swiss Franc'},
     AUD:{symbol:'$',name:'Australia Dollar'},
+    MXN:{symbol:'$',name:'Mexican Pesos'},    
 };
 
 //check the script and localstorage for the conversion rate and date

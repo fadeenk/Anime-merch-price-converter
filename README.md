@@ -9,7 +9,7 @@ Converts prices from Japanese yen to popular currencies for the popular anime me
 |HobbySearch|Canadian Dollar
 |Jungle|Swiss Franc
 |Good Smile Online Shop|Australia Dollar
-|Big in Japan|-
+|Big in Japan| Mexican Pesos
 
 ## Features
 * Works automatically (No setup required other than having a user script manager)
@@ -54,6 +54,7 @@ If you are interested in improving this script feel free to fork and clone.
 4. Once satisfied submit a pull request :)
 
 ## Release History
+* Sep 5, 2015   v1.0.1   Added Mexican Pesos support
 * Aug 8, 2015   v1.0.0   Improved styling to better fit different websites, Styles are not configurable through the settings panel. Added global shared variables for the currency and styles. Improved code readability. Settings Panel is more organized and fully responsive. Changed $ to jQuery to avoid conflict with $ on goodsmile. And added more websites and currencies.
 * Aug 7, 2015   v0.5.4   Added support for myfigurecollection (MFC) and implemented a new system for detecting prices on different sites
 * Aug 7, 2015   v0.5.3   Fixed issue where setUpSettings function was not injected into the page and updated descriptions
