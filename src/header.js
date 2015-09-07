@@ -13,6 +13,14 @@
 // @include     http://jungle-scs.co.jp/sale_en/*
 // @include     http://goodsmile-global.ecq.sc/*
 // @include     http://biginjap.com/*
+// @include     https://slist.amiami.com/top/search/*
+// @include     https://www.amiami.com/*
+// @include     https://myfigurecollection.net/item/*
+// @include     https://order.mandarake.co.jp/*
+// @include     https://www.1999.co.jp/eng/*
+// @include     https://jungle-scs.co.jp/sale_en/*
+// @include     https://goodsmile-global.ecq.sc/*
+// @include     https://biginjap.com/*
 // @require     http://code.jquery.com/jquery-2.1.3.min.js
 // @grant       GM_getValue
 // @grant       GM_setValue
