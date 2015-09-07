@@ -54,6 +54,7 @@ If you are interested in improving this script feel free to fork and clone.
 4. Once satisfied submit a pull request :)
 
 ## Release History
+* Sep 7, 2015   v1.0.2   Added support for https (should have had that since the beginning :P)
 * Sep 5, 2015   v1.0.1   Added Mexican Pesos support
 * Aug 8, 2015   v1.0.0   Improved styling to better fit different websites, Styles are not configurable through the settings panel. Added global shared variables for the currency and styles. Improved code readability. Settings Panel is more organized and fully responsive. Changed $ to jQuery to avoid conflict with $ on goodsmile. And added more websites and currencies.
 * Aug 7, 2015   v0.5.4   Added support for myfigurecollection (MFC) and implemented a new system for detecting prices on different sites

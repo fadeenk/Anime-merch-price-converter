@@ -2,7 +2,7 @@
 // @name        AnimeMerchPriceConverter
 // @namespace   http://mrkannah.com
 // @description Converts prices from Japanese yen to popular currencies for amiami, mandarake, myfigurecollection (MFC), HobbySearch, Jungle, Good Smile Online Shop, and Big in Japan. This scripts gets the conversion rates from Yahoo Finance daily.
-// @version     1.0.1
+// @version     1.0.2
 // @author      Fadee Kannah
 // @license     GPL-3.0
 // @include     http://slist.amiami.com/top/search/*
@@ -13,6 +13,14 @@
 // @include     http://jungle-scs.co.jp/sale_en/*
 // @include     http://goodsmile-global.ecq.sc/*
 // @include     http://biginjap.com/*
+// @include     https://slist.amiami.com/top/search/*
+// @include     https://www.amiami.com/*
+// @include     https://myfigurecollection.net/item/*
+// @include     https://order.mandarake.co.jp/*
+// @include     https://www.1999.co.jp/eng/*
+// @include     https://jungle-scs.co.jp/sale_en/*
+// @include     https://goodsmile-global.ecq.sc/*
+// @include     https://biginjap.com/*
 // @require     http://code.jquery.com/jquery-2.1.3.min.js
 // @grant       GM_getValue
 // @grant       GM_setValue
@@ -186,19 +194,19 @@ function setUpSettings(currentUnit, UNITS){
 
 function getPrices(){
   //returns the elements that have the prices on them
-  if(window.location.href.indexOf('http://myfigurecollection.net/') > -1) {
+  if(window.location.href.indexOf('myfigurecollection.net/') > -1) {
      return jQuery('.sd:first li label:contains("Price")').closest('li').children( 'div' );
   }
-  else if(window.location.href.indexOf('http://www.1999.co.jp/eng') > -1) {
+  else if(window.location.href.indexOf('www.1999.co.jp/eng') > -1) {
     return jQuery('[id^=masterBody_ProductList_lvProductListTop_lblPrice]');
   }
-  else if(window.location.href.indexOf('http://jungle-scs.co.jp/') > -1 || window.location.href.indexOf('http://goodsmile-global.ecq.sc/') > -1) {
+  else if(window.location.href.indexOf('jungle-scs.co.jp/') > -1 || window.location.href.indexOf('goodsmile-global.ecq.sc/') > -1) {
     return jQuery('.price');
   }
-  else if(window.location.href.indexOf('http://biginjap.com/') > -1 ) {
+  else if(window.location.href.indexOf('biginjap.com/') > -1 ) {
     return jQuery('.price, #our_price_display');
   }
-  else if(window.location.href.indexOf('http://order.mandarake.co.jp/') > -1 ) {
+  else if(window.location.href.indexOf('order.mandarake.co.jp/') > -1 ) {
     return jQuery('div.basicinfo dl :nth-child(6) p, div.price > p');
   }
   else{
